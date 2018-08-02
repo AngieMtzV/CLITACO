@@ -1,0 +1,51 @@
+<html>
+	<head>
+    
+<title>Actividades en CLITACO</title>
+
+		<style>
+			h1{
+				text-align: center;
+			}
+
+			table{
+				border: 1px solid;
+				margin: 0 auto;
+				width: 70%;
+			}
+
+			td, th{
+				text-align: center;
+				border: 1px solid;
+			}
+		</style>
+	</head>
+
+<body>
+<strong><h1> Pacientes del Alumno </h1></strong>
+<h4>Usuario: {{request.user}} </h4>
+<table>
+	<thead>
+		<tr>
+			<th>Expediente</th>
+			<th>Nombre del Paciente</th>
+			<th>Edad</th>
+			<th>Tipo</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for HistoriaClinica in pacientes_urgencia %}
+			<tr>
+				<td>{{HistoriaClinica.folio}}</td>
+				<td>{{HistoriaClinica.nommbre_paciente}}</td>
+				<td>{{HistoriaClinica.edad}}</td>
+				<td>Urgencia</td>
+			</tr>
+
+		{% endfor %}
+	</tbody>
+</table>
+
+
+</body>
+</html>

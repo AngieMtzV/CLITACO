@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'inicio.html' %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+<title>{% block title %} CLITACO{% endblock %}</title>
+</head>
+
+<body style= "background-color:white;">
+	
+{% block content %}
+	<strong><h1 style= "text-align:center;"> Nuevo Usuario </h1></strong>
+
+	<form method="POST">
+		{% csrf_token %}
+
+	<table class="table table-borderless">
+		{{form.as_table}}
+
+		
+	</table>
+
+	<button type='submit' class="btn btn-dark"> Guardar </button>
+	</form>
+{% endblock %}
+</body>

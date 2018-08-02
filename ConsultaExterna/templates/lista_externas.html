@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'base_externas.html' %}
+<html lang="en">
+  <head>
+
+  	<script type="text/javascript">
+      $(document).ready(function() {
+          $('btn-group dropright active').dropdown()
+      });
+    </script>
+
+</head>
+
+<body>
+
+	{% block content %}
+
+	<strong><h1 style= "text-align:center;"> Lista de Consultas Externas</h1></strong>
+	<h3> {{user.username}} </h3>
+
+	 <table class="table table-striped table-dark"> 
+	<thead>
+		<tr>
+			<td align="center">Num</td>
+			<td align="center">Paciente</td>
+			<td align="center">Fecha</td>
+			<td align="center">Mas Formularios </td>
+			<td>Opciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		
+		{% for valoracionInicial in externas %}	<tr>
+			<td>{{valoracionInicial.id}}</td>
+			<td>{{valoracionInicial.nombre_paciente_VI}}</td>
+			<td align="center">{{valoracionInicial.fecha}}</td>
+			<td align="center"> <button type="button" class="btn btn-outline-light" onclick="location.href = '{% url 'table_evolucion' pk=valoracionInicial.pk  %}';" >Evolución</button>
+			 <button type="button" class="btn btn-outline-light" onclick="location.href = '{% url 'avance_rapido_detalles' pk=valoracionInicial.pk  %}';" >Avance rápido</button>
+			 <button type="button" class="btn btn-outline-light" valign="middle"  >Referencia-Contrareferencia</button>
+			</td>
+			<td> <button type="button" class="btn btn-outline-primary"><a href="{% url 'valoracion_edit' pk=valoracionInicial.pk %}'">Editar</button></td>
+
+		</tr>
+		{% endfor %}
+
+	</tbody>
+	</table>
+
+	
+	{% endblock %}
+
+</body>
+</html>

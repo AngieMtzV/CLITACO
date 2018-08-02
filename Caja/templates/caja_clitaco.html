@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'base_historias.html' %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<title>{% block title %} CLITACO {% endblock %}</title>
+</head>
+
+<body>
+	<div>
+		
+	</div>
+{% block content %}
+<strong><h1 style= "text-align:center;"> Caja de CLITACO </h1></strong>
+	<form method="POST">
+		{% csrf_token %}
+			<table class="table table-striped">
+				{{form.as_table}}
+			</table>
+		<button type='submit' class="btn btn-dark">Guardar</button>
+
+<strong><h1 style= "text-align:center;">Ventas </h1></strong>
+			<table class="table table-striped table-dark">
+				<thead>
+					<tr>
+						<td>Num.</td>
+						<td>Fecha</td>
+						<td>Productos</td>
+					</tr>
+				</thead>
+			<tbody>
+				{% for Venta in ventas %}
+				<tr>
+					<td>{{Venta.id}}</td>
+					<td>{{Venta.fecha}}</td>
+					<td>{{Venta.productos}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			</table>
+	</form>
+
+
+{% endblock %}
+
+
+</body>

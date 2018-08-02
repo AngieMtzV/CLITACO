@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% extends 'base_docente.html' %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+<head>
+
+</head>
+
+<body>
+
+	{% block content %}
+		<form method="POST">
+		{% csrf_token %}
+
+		<strong><h1 style= "text-align:center;"> Evaluación Final </h1></strong>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Alumno</th>	
+						<td>{{form.alumno}}</td>	
+					</tr>
+					<tr>
+						<th>Días</th>	
+						<td>{{form.dias}}</td>	
+					</tr>
+					<tr>
+						<th>Asistencia</th>	
+						<td>{{form.asistencia}}</td>	
+					</tr>
+					<tr>
+						<td><strong>Tipo de Competencia</strong></td>	
+						<td><strong>Calificar</strong></td>	
+						<td><strong>Calificar</strong></td>	
+					</tr>
+
+
+				</thead>
+				<tbody>
+					<tr>
+						<th>Elabora historia Clinica</th>
+						<td> {{form.historia_clinica}}</td>
+						<td>{{form.hist_clinica}}</td>
+					</tr>
+					<tr>
+						<th>Elabora Diagnostico</th>
+						<td> {{form.diagnosticos}}</td>
+						<td>{{form.diag}}</td>
+					</tr>
+					<tr>
+						<th>Rec.Deriva Patol. Buc</th>
+						<td> {{form.rec_deriva}}</td>
+						<td>{{form.rec_der}}</td>
+					</tr>
+					<tr>
+						<th>Rec. Edo San Pat.C.De</th>
+						<td> {{form.rec_edo}}</td>
+						<td>{{form.rec_edo2}}</td>
+					</tr>
+					<tr>
+						<th>Manipula Material Dental</th>
+						<td> {{form.mat_dental}}</td>
+						<td>{{form.mat_dent}}</td>
+					</tr>
+					<tr>
+						<th>Asis.Tto.Perio.Fase II</th>
+						<td> {{form.asis_faseII}}</td>
+						<td>{{form.as_faseII}}</td>
+					</tr>
+					<tr>
+						<th>Aplica Tec. de Anestesia</th>
+						<td> {{form.aplica_anestesia}}</td>
+						<td>{{form.apli_anes}}</td>
+					</tr>
+					<tr>
+						<th>Tec. Rx e Interpreta</th>
+						<td> {{form.tec_rx}}</td>
+						<td>{{form.tec_rx2}}</td>
+					</tr>
+					<tr>
+						<th>Obt. Mat. Permanentes</th>
+						<td> {{form.obt_permanentes}}</td>
+						<td>{{form.obt_perm}}</td>
+					</tr>
+					<tr>
+						<th>Extrae Dientes</th>
+						<td> {{form.extrae_dientes}}</td>
+						<td>{{form.ext_dientes}}</td>
+					</tr>
+					<tr>
+						<th>Tto. De Conductos</th>
+						<td> {{form.tto_conductos}}</td>
+						<td>{{form.tto_conduct}}</td>
+					</tr>
+					<tr>
+						<th>A. Cirugia Tej. D y B</th>
+						<td> {{form.cirujia_d_b}}</td>
+						<td>{{form.cirujia_db}}</td>
+					</tr>
+					<tr>
+						<th>Ind.Dise.Ajus.Prot.Tot</th>
+						<td> {{form.ind_dise_tot}}</td>
+						<td>{{form.ind_dise_tot2}}</td>
+					</tr>
+					<tr>
+						<th>Ind.Dise.Ajus.Prot.Fij</th>
+						<td> {{form.ind_dise_fij}}</td>
+						<td>{{form.ind_dise_fij2}}</td>
+					</tr>
+					<tr>
+						<th>Ind.Dise.Ajus.Prot.Rem</th>
+						<td> {{form.ind_dise_rem}}</td>
+						<td>{{form.ind_dise_rem2}}</td>
+					</tr>
+					<tr>
+						<th> Ind.Dis.Desprogram</th>
+						<td> {{form.ind_desprogram}}</td>
+						<td>{{form.ind_desprog}}</td>
+					</tr>
+					<tr>
+						<th> Realiza Tinciones</th>
+						<td> {{form.real_tinciones}}</td>
+						<td>{{form.real_tinc}}</td>
+					</tr>
+					<tr>
+						<th>Feruliza</th>
+						<td> {{form.feruliza}}</td>
+						<td>{{form.feruliza2}}</td>
+					</tr>
+					<tr>
+						<th>Practica Toma Biops.</th>
+						<td> {{form.practica_biops}}</td>
+						<td>{{form.pract_biops}}</td>
+					</tr>
+
+
+
+					
+				</tbody>
+			</table>
+		<button type='submit' class="btn btn-dark">Guardar</button>
+	</form>
+
+	{% endblock %}
+	
+	
+
+</body>
+</html>
