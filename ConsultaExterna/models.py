@@ -64,7 +64,7 @@ class refContraRef(models.Model):
 
 	no_control = models.BigAutoField(u'No.Control', primary_key=True)
 	paciente = models.ForeignKey(valoracionInicial)
-	urgencia = models.CharField(u'Urgencia', max_length=2)
+	urgencia = models.CharField(u'Urgencia', max_length=25)
 	fecha = models.DateTimeField(u'Fecha y Hora', auto_now_add=True)
 	unidad_a_referir = models.CharField(u'Unidad a la que se refiere:', max_length=60)
 	servicio = models.TextField(u'Servicio al que se le envia:', null=False)
