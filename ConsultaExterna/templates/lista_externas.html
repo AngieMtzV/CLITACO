@@ -37,11 +37,13 @@
 			<td align="center">{{valoracionInicial.fecha}}</td>
 			<td align="center"> <button type="button" class="btn btn-outline-light" onclick="location.href = '{% url 'table_evolucion' pk=valoracionInicial.pk  %}';" >Evolución</button>
 			 <button type="button" class="btn btn-outline-light" onclick="location.href = '{% url 'avance_rapido_detalles' pk=valoracionInicial.pk  %}';" >Avance rápido</button>
-			 <button type="button" class="btn btn-outline-light" valign="middle"  >Referencia-Contrareferencia</button>
+			 <button type="button" class="btn btn-outline-light" valign="middle" onclick="location.href = '{% url 'detalles_ref' pk=valoracionInicial.pk  %}';" >Referencia-Contrareferencia</button>
 			</td>
 			<td> <button type="button" class="btn btn-outline-primary"><a href="{% url 'valoracion_edit' pk=valoracionInicial.pk %}'">Editar</button></td>
 
 		</tr>
+		{% empty %}
+    		<li class="list-group-item list-group-item-primary">No se han creado consultas</li>
 		{% endfor %}
 
 	</tbody>

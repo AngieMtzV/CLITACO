@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% extends 'base_historias.html' %}
+{% extends 'base_externas.html' %}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -34,6 +34,7 @@
 					<tr>
 						<td>Fecha</td>
 						<td>Signos</td>
+						<td>Paciente</td>
 					</tr>
 				</thead>
 			<tbody>
@@ -41,6 +42,7 @@
 				<tr>
 					<td>{{evolucionConsultaExterna.fecha}}</td>
 					<td>{{evolucionConsultaExterna.signos}}</td>
+					<td>{{evolucionConsultaExterna.valoracion.nombre_paciente_VI}}</td>
 				</tr>
 				{% endfor %}
 			</tbody>

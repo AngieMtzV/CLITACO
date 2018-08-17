@@ -2,9 +2,10 @@
 from __future__ import unicode_literals
 
 from django.contrib import admin
-from HistoriaClinica.models import Civil, HistoriaClinica, Sexo, TipoInterrogatorio, TipoCraneo,Perfil, HistoriaClinicaControlado,PlanTratamiento, PlanEjecucion, HistoriaClinicaIntegral
+from HistoriaClinica.models import Civil, HistoriaClinica, Sexo, TipoInterrogatorio, TipoCraneo,Perfil, HistoriaClinicaControlado,PlanTratamiento, PlanEjecucion, HistoriaClinicaIntegral, Estado
 
 admin.site.register(HistoriaClinica)
+admin.site.register(Estado)
 admin.site.register(Civil)
 admin.site.register(Sexo)
 admin.site.register(TipoInterrogatorio)

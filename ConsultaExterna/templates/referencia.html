@@ -17,7 +17,8 @@
 	</div>
 
 {% block content %}
-<strong><h1 style= "text-align:center;"> Referencia </h1></strong>
+<strong><h1 style= "text-align:center;"> Referencia de {{paciente.nombre_paciente_VI}}
+ </h1></strong>
 
 	<form method="POST">
 		{% csrf_token %}
@@ -29,8 +30,7 @@
 
 		<button type='submit' class="btn btn-dark">Guardar</button>
 
-			<h3>{{paciente.nombre_paciente_VI}}</h3>
-
+			
 
 	</form>
 	

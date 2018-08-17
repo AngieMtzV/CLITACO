@@ -32,23 +32,25 @@ class ListaConsultaExterna(ListView):
 		context = super(ListaConsultaExterna, self).get_context_data(**kwargs)
 		context['externas'] = valoracionInicial.objects.filter(usuario =self.request.user)
 
+		return context
+
 class TablaEvolucion(CreateView):
 	model= evolucionConsultaExterna
 	form_class = EvolConsultaExterna
 	template_name= 'evolucion_consulta.html'
 	success_url = 'evolucion'
-	queryset= evolucionConsultaExterna.objects.all()	
+	queryset= evolucionConsultaExterna.objects.all()
 
-	def form_valid(self, form):
-	 evolucion = form.save(commit = False)
-	 evolucion.valoracion = self.request.valoracion
-	 return super(TablaEvolucion, self).form_valid(form)	
-
-	def get_context_data (self, **kwargs):
+	def get_context_data(self, **kwargs):
 		context =super(TablaEvolucion, self).get_context_data(**kwargs)
 		context['evoluciones'] =self.queryset
 		return context
 
+	def form_valid(self, form):
+		valoracion = get_object_or_404(valoracionInicial, pk=self.kwargs['pk'])
+		form.instance.valoracion = valoracion
+		return super(TablaEvolucion, self).form_valid(form)
+		
 class CuadroAvanceRapido(CreateView):
 	model= avanceRapido
 	form_class = AvanceRapidoForm

@@ -17,13 +17,38 @@
 	</div>
 
 {% block content %}
-<strong><h1 style= "text-align:center;"> Referencia-Contra Referencia </h1></strong>
+<strong><h1 style= "text-align:center;"> Sistema de Referencia y ContraReferencia </h1></strong>
+<h2 style= "text-align:center;">Referencia a Interconsulta</h2>
+<strong><h3 style= "text-align:right;">Folio: {{object.paciente.pk}} </h3></strong>
+<strong><h3 style= "text-align:left;">Fecha: {{object.fecha}} </h3></strong>
+
 
 	<form method="POST">
 		{% csrf_token %}
+		<table class="table table-striped table-dark"> 
+	<thead>
+		<tr>
+			<td>Nombre del Paciente</td>
+			<td>Edad</td>
+			<td>Domicilio del Paciente</td>
+			<td>Motivo de Envio</td>
+			<td>Urgencia</td>
+			<td>Unidad a la que se refiere</td>
+			<td>Nombre a quien se refiere</td>
+		</tr>
 
-			
-				{{object.urgencia}}
+	</thead>
+	<tbody>
+		<tr>
+				<td>{{object.paciente.nombre_paciente_VI}}</td>
+				<td>{{object.paciente.edad}}</td>
+				<td>Av. Siempre Viva</td>
+				<td>{{object.motivo}}</td>
+				<td>{{object.urgencia}}</td>
+				<td>{{object.unidad_a_referir}}</td>
+				<td>Dr.Simi</td>
+			</tr>
+	</tbody>
 		
 
 

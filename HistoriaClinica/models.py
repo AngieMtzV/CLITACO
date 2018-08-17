@@ -8,6 +8,11 @@ class Civil(models.Model):
 	def __unicode__(self):
 		return self.estado
 
+class Estado(models.Model):
+	estado_estado= models.CharField(u'Estado del Paciente', max_length=30)
+	def __unicode__(self):
+		return self.estado_estado
+
 class Sexo(models.Model):
 	sex= models.CharField(u'Sexo', max_length=15)
 	def __unicode__(self):
@@ -51,6 +56,7 @@ class BaseHistoriaClinica(models.Model):
 	Ocupacion = models.CharField(u'Ocupacion', max_length=25)
 	Domicilio = models.CharField(u'Domicilio', max_length=255)
 	curp = models.CharField(u'CURP', max_length=18, unique=True)
+	estado = models.ForeignKey(Estado)
 	
 
 	class Meta:

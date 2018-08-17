@@ -31,8 +31,12 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
 
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'alumno_perfil' pk=user.pk %}">Ver Perfil<span class="sr-only">(current)</span></a>
+          
+            <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Perfil</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="/clitaco/alumno/perfil/crear">Completar Perfil</a>
+            <a class="dropdown-item" href="{% url 'alumno_perfil' pk=user.pk %}">Ver Perfil</a>
           </li>
 
           <li class="nav-item active">
@@ -40,8 +44,8 @@
           </li>
           
           <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Historia Clinica</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Historia Clinica</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown02">
               <a class="dropdown-item" href="/clitaco/nuevahistoriaclinica/urgencia">Nueva de Urgencia</a>
               <a class="dropdown-item" href="/clitaco/nuevahistoriaclinica/controlada">Nueva de Controlado</a>
               <a class="dropdown-item" href="/clitaco/nuevahistoriaclinica/integral">Nueva de Integral</a>

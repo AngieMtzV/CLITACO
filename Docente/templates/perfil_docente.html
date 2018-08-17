@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base_docente.html' %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+<title>{% block title %} CLITACO{% endblock %}</title>
+</head>
+
+<body>
+{% block content %}
+<strong><h1 style= "text-align:center;"> Perfil del Docente </h1></strong>
+<h4>Usuario: {{user}} </h4>
+<dl class="row">
+	<dt class="col-sm-3">Nombre</dt>
+	<dd class="col-sm-9"><em>{{user.first_name}} {{user.last_name}}</em></dd>
+
+
+
+{% endblock %}
+</body>

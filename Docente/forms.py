@@ -1,5 +1,5 @@
 from django import forms
-from models import DocenteAlumno
+from models import DocenteAlumno, PerfilDocente
 
 OPCIONES = (
 
@@ -69,4 +69,13 @@ class FormularioDocenteForm(forms.ModelForm):
 	feruliza2 = forms.ChoiceField(choices=OPCIONES2, widget=forms.RadioSelect())
 	practica_biops = forms.ChoiceField(label = 'Practica Toma Biops.', choices=OPCIONES, widget=forms.RadioSelect())
 	pract_biops = forms.ChoiceField(choices=OPCIONES2, widget=forms.RadioSelect())
+
+class DocenteForm(forms.ModelForm):
+	class Meta:
+		model = PerfilDocente
+
+		fields = (
+			'imagen_docente',
+
+			)
 	 

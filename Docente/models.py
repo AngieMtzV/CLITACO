@@ -15,8 +15,7 @@ class DocenteAlumno(models.Model):
 
 class PerfilDocente(models.Model):
 	imagen_docente = models.ImageField(u'Foto de Perfil', upload_to='imagen-docente', default='us_alumno.png')
-	perfil_docente =models.OneToOneField(Usuario, related_name='user_docente')
-	alumnos = models.ForeignKey(PerfilAlumno)
+	perfil_docente =models.ForeignKey(Usuario, related_name='user_docente')
 
 	def __unicode__(self):
 		return self.perfil

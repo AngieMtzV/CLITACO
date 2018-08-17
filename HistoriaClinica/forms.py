@@ -17,6 +17,7 @@ class HistoriaClinica_Form(forms.ModelForm):
 			'Ocupacion',
 			'Domicilio',
 			'curp',
+			'estado',
 			'Motivo_Consulta',
 			'Signos_Sintomas',
 			'Ante_Pato',
@@ -49,6 +50,7 @@ class HistoriaClinica_Form(forms.ModelForm):
 			'aut_docente',
 			'descrip_act',
 			'descrip_notas',
+
 			)
 class Historia_Clinica_Controlado(forms.ModelForm):
 	class Meta:
@@ -64,6 +66,7 @@ class Historia_Clinica_Controlado(forms.ModelForm):
 			'Ocupacion',
 			'Domicilio',
 			'curp', 
+			'estado',
 			'padecimiento', 
 			'antecedentes',
 			'np_domiciliarios',
@@ -181,7 +184,8 @@ class Historia_Clinica_IntegralForm(forms.ModelForm):
 			'Tel',
 			'Ocupacion',
 			'Domicilio',
-			'curp', 
+			'curp',
+			'estado', 
 			'ipadecimiento', 
 			'iantecedentes',
 			'inp_domiciliarios',
