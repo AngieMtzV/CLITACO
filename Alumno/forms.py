@@ -30,6 +30,8 @@ class RegistroAlumnoForm(UserCreationForm):
 			'first_name',
 			'last_name',
 			'email',
+			'is_estudiante',
+			'is_medico',
 			)
 
 	def save(self,commit=True):

@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 from django.db import models
 from Usuarios.models import Usuario
 
+
 class MaterialEnfermeria(models.Model):
 	fecha = models.DateTimeField(u'Fecha', auto_now_add=True)
-	usuario_material = models.ForeignKey(Usuario, related_name='user_material')
+	alumno= models.ForeignKey(Usuario)
 	expediente = models.CharField(u'Expediente', max_length= 15)
 	abatelenguas = models.IntegerField(u'Abatelenguas', default=0)
 	acrilico = models.IntegerField(u'Acrilico', default=0)

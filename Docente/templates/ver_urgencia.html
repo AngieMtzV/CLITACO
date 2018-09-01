@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% extends 'base_historias.html' %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    
+<title>{% block title %} CLITACO{% endblock %}</title>
+</head>
+
+<body>
+{% block content %}
+<strong><h1 style= "text-align:center;"> Detalles de Historia Clínica de Urgencia </h1></strong>
+
+<h2>Creado por: {{object.usuario.first_name}} {{object.usuario.last_name}} </h2>
+<h2>Nombre del paciente: {{object.nommbre_paciente}}  </h2>
+
+
+
+
+{% endblock %}
+</body>

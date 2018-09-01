@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% extends 'base_docente.html' %}
+<html lang="en">
+  <head>
+
+  	<script type="text/javascript">
+      $(document).ready(function() {
+          $('btn-group dropright active').dropdown()
+      });
+    </script>
+
+</head>
+
+<body>
+
+	{% block content %}
+
+	<strong><h1 style= "text-align:center;"> Historias Clinicas por Aprobar</h1></strong>
+
+
+	 <table class="table table-striped table-dark"> 
+	<thead>
+		<tr>
+			<td>CURP</td>
+			<td>Paciente</td>
+			<td>Fecha</td>
+			<td>Domicilio</td>
+			<td> Tipo </td>
+			<td>Opciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		
+		{% for HistoriaClinica in urgencias %}
+		<tr>
+			<td>{{HistoriaClinica.curp}}</td>
+			<td>{{HistoriaClinica.nommbre_paciente}}</td>
+			<td>{{HistoriaClinica.fecha}}</td>
+			<td>{{HistoriaClinica.Domicilio}}</td>
+			<td> De Urgencia</td>
+			<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'detalle_urgencia' pk=HistoriaClinica.pk  %}';">Ver</button></td>
+		</tr>
+		{% endfor %}
+
+			{% for HistoriaClinicaControlado in controladas %}
+			<tr>
+				<td>{{HistoriaClinicaControlado.curp}}</td>
+				<td>{{HistoriaClinicaControlado.nommbre_paciente}}</td>
+				<td>{{HistoriaClinicaControlado.fecha}}</td>
+				<td>{{HistoriaClinicaControlado.Domicilio}}</td>
+				<td> Controlado </td>
+				<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_controlado' pk=HistoriaClinicaControlado.pk  %}';"  >Ver</button></td>
+			</tr>
+			
+
+			{% endfor %}
+
+				{% for HistoriaClinicaIntegral in integrales %}
+			<tr>
+				<td>{{HistoriaClinicaIntegral.curp}}</td>
+				<td>{{HistoriaClinicaIntegral.nommbre_paciente}}</td>
+				<td>{{HistoriaClinicaIntegral.fecha}}</td>
+				<td>{{HistoriaClinicaIntegral.Domicilio}}</td>
+				<td> Integral </td>
+				<td> <button type="button" class="btn btn-primary">Ver</button></td>
+			</tr>
+			
+			{% empty %}
+    		<li class="list-group-item list-group-item-primary">No se han creado historias clinicas </li>
+			{% endfor %}
+	</tbody>
+	</table>
+	
+	
+	{% endblock %}
+
+</body>
+</html>

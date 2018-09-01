@@ -2,8 +2,10 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
+from django.views.generic import CreateView
 from django.contrib.auth.decorators import login_required
 from Usuarios.models import Usuario
+from Usuarios.forms import RegistroOtrosForme
 
 
 @login_required

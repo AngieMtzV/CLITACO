@@ -26,6 +26,7 @@
 			<td>Fecha</td>
 			<td>Domicilio</td>
 			<td> Tipo </td>
+			<td>Autorización</td>
 			<td>Opciones</td>
 		</tr>
 
@@ -39,7 +40,13 @@
 			<td>{{HistoriaClinica.fecha}}</td>
 			<td>{{HistoriaClinica.Domicilio}}</td>
 			<td> De Urgencia</td>
-			<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_urgencia' pk=HistoriaClinica.pk  %}';">Editar</button></td>
+			{% if HistoriaClinica.aut_docente == True%}
+			<td>Autorizado </td>
+			{% else %}
+			<td>No Autorizado </td>
+			{% endif %}
+			<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_urgencia' pk=HistoriaClinica.pk  %}';">Editar</button>
+			 <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_urgencia' pk=HistoriaClinica.pk  %}';">Ver</button></td>
 		</tr>
 		{% endfor %}
 
@@ -50,7 +57,9 @@
 				<td>{{HistoriaClinicaControlado.fecha}}</td>
 				<td>{{HistoriaClinicaControlado.Domicilio}}</td>
 				<td> Controlado </td>
-				<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_controlado' pk=HistoriaClinicaControlado.pk  %}';"  >Editar</button></td>
+				<td>No Autorizado</td>
+				<td><button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_controlado' pk=HistoriaClinicaControlado.pk  %}';"  >Editar</button>
+					<button type="button" class="btn btn-primary" onclick="location.href = '{% url 'plan-tratamiento' pk=HistoriaClinicaControlado.pk  %}';"  >Plan de Tratamiento</button></td>
 			</tr>
 			
 
@@ -63,7 +72,11 @@
 				<td>{{HistoriaClinicaIntegral.fecha}}</td>
 				<td>{{HistoriaClinicaIntegral.Domicilio}}</td>
 				<td> Integral </td>
-				<td> <button type="button" class="btn btn-primary">Editar</button></td>
+				<td>No Autorizado</td>
+				<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'editar_integral' pk=HistoriaClinicaIntegral.pk  %}';">Editar</button>
+					<button type="button" class="btn btn-primary">Plan de Tratamiento</button>
+
+				</td>
 			</tr>
 			
 			{% empty %}

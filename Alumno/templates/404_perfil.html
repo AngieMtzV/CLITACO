@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+<!DOCTYPE html>
+
+{% block title %}Perfil404{% endblock %}
+
+
+<body>
+
+	{% block content %}
+		<h1>{{user.first_name}}:</h1><h1 style="color:Tomato;">No haz creado tu perfil de alumno!</h1>
+		<strong><a> Para crearlo da click<a> <a href="/clitaco/alumno/perfil/crear">aquí</a> </strong>
+	{% endblock %}
+
+
+
+	
+
+</body>
+</html>

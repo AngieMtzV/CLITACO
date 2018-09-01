@@ -6,3 +6,5 @@ from django.contrib.auth.admin import UserAdmin
 from Usuarios.models import Usuario
 
 admin.site.register(Usuario, UserAdmin)
+
+

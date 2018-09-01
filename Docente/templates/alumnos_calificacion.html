@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% extends 'base_docente.html' %}
+<html lang="en">
+  <head>
+
+  	<script type="text/javascript">
+      $(document).ready(function() {
+          $('btn-group dropright active').dropdown()
+      });
+    </script>
+
+</head>
+
+<body>
+
+	{% block content %}
+
+	<strong><h1 style= "text-align:center;"> Lista de Alumnos </h1></strong>
+
+
+	 <table class="table table-striped table-dark"> 
+	<thead>
+		<tr>
+			<td>Nombre del Alumno</td>
+			<td>Semestre</td>
+			<td>Grupo</td>
+			<td>Unidad</td>
+			<td>Turno </td>
+			<td>Opciones</td>
+		</tr>
+
+	</thead>
+	<tbody>
+		
+		{% for PerfilAlumno in alumnos %}
+		<tr>
+			<td>{{PerfilAlumno.perfil.first_name}} {{PerfilAlumno.perfil.last_name}}</td>
+			<td>{{PerfilAlumno.semestre}}</td>
+			<td>{{PerfilAlumno.grupo}}</td>
+			<td>{{PerfilAlumno.unidad}}</td>
+			<td>{{PerfilAlumno.turno}}</td>
+			<td> <button type="button" class="btn btn-primary" onclick="location.href = '{% url 'seguimiento_alumnos' pk=PerfilAlumno.pk  %}';" >Calificar</button></td>
+		{% endfor %}
+	</tbody>
+	</table>
+	
+	
+	{% endblock %}
+
+</body>
+</html>

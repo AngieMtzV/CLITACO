@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView
 from forms import MaterialForm
@@ -17,7 +17,7 @@ def material_view(request):
 		form = MaterialForm(request.POST)
 		if form.is_valid():
 			instance = form.save(commit=False)
-			instance.usuario_material = request.user
+			instance.alumno = request.user
 			instance.save()
 			form.save()
 		return redirect('material_lista')
@@ -28,12 +28,10 @@ def material_view(request):
 class ListaMaterial(ListView):
     context_object_name = 'material_lista'
     template_name = 'lista_material.html'
+    queryset = MaterialEnfermeria.objects.all()
 
-    def get_queryset(self):
-    	return MaterialEnfermeria.objects.filter(usuario_material =self.request.user)
-
-	def get_context_data(self, **kwargs):
-		context = super(ListaMaterial,  self).get_context_data(**kwargs)
-		context['materiales'] = MaterialEnfermeria.objects.filter(usuario_material =self.request.user)
+    def get_context_data(self, **kwargs):
+	context = super(ListaMaterial,  self).get_context_data(**kwargs)
+	context['materiales'] = MaterialEnfermeria.objects.all()
 		
-		return context
+	return context

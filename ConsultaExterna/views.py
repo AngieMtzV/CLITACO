@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,  Http404
 from django.views.generic import  CreateView, ListView, DetailView, UpdateView
 from ConsultaExterna.forms import  ValoracionInicialForm, AvanceRapidoForm, EvolConsultaExterna, ValoracionEditForm, ReferenciaForm
 from ConsultaExterna.models import valoracionInicial, evolucionConsultaExterna, avanceRapido, refContraRef
@@ -71,10 +71,19 @@ class DetallesReferencia(DetailView):
 	model = refContraRef
 	template_name = 'referencia_detalles.html'
 
+	def get(self, request, *args, **kwargs):
+		try:
+			self.object = self.get_object()
+		except Http404:
+			return redirect('404_referencia')
+		context = self.get_context_data(object=self.object)
+		return self.render_to_response(context)
+
 class ValoracionEdit(UpdateView):
 	form_class = ValoracionEditForm
 	template_name = 'valoracion_edit.html'
 	success_url = reverse_lazy('listas_externa') 
+
 
 class ReferenciaContraReferencia(CreateView):
 	model = refContraRef
@@ -93,7 +102,25 @@ class ReferenciaContraReferencia(CreateView):
 		return super(ReferenciaContraReferencia, self).form_valid(form)
 
 
+def view404referencia(request):
+	return render(request,'404_referencia.html')
 
+def valoracion_edit(request, pk):
+	if not request.user.is_authenticated():
+		raise Http404
+
+	valoracion= get_object_or_404(valoracionInicial, pk=pk)
+	if request.method == 'GET':
+		form = ValoracionInicialForm(instance=valoracion)
+	else:
+		form = ValoracionInicialForm(request.POST, instance=valoracion)
+		if form.is_valid():
+			instance = form.save(commit=False)
+			instance.usuario = request.user
+			instance.save()
+			form.save()
+		return redirect('listas_externa')
+	return render(request, 'valoracion_edit.html', {'form':form})
 
 
 #Agregar busqueda de por curp para pacientes recurrentes y no recurrentes

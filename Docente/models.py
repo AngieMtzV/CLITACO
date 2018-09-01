@@ -18,5 +18,5 @@ class PerfilDocente(models.Model):
 	perfil_docente =models.ForeignKey(Usuario, related_name='user_docente')
 
 	def __unicode__(self):
-		return self.perfil
+		return unicode(self.perfil_docente)
 

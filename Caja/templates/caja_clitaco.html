@@ -29,19 +29,23 @@
 					<tr>
 						<td>Num.</td>
 						<td>Fecha</td>
-						<td>Productos</td>
+						<td>Producto</td>
+						<td>Precio</td>
+
 					</tr>
 				</thead>
 			<tbody>
 				{% for Venta in ventas %}
 				<tr>
-					<td>{{Venta.id}}</td>
+					<td>{{Venta.folio}}</td>
 					<td>{{Venta.fecha}}</td>
 					<td>{{Venta.productos}}</td>
+					<td>{{Venta.productos.precio}}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
 			</table>
+
 	</form>
 
 

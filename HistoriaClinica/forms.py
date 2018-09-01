@@ -47,11 +47,23 @@ class HistoriaClinica_Form(forms.ModelForm):
 			'pronostico',
 			'tratamiento_seguimiento',
 			'costo',
-			'aut_docente',
 			'descrip_act',
 			'descrip_notas',
 
 			)
+		readonly = ('aut_docente',)
+
+		def __init__(self, *arg, **kwrg):
+			super(HistoriaClinica_Form, self).__init__(*arg, **kwrg)
+			for x in self.readonly:
+				self.fields[x].widget.attrs['disabled'] = 'disabled'
+
+		def clean(self):
+			data = super(HistoriaClinica_Form, self).clean()
+			for x in self.readonly:
+				data[x] = getattr(self.instance, x)
+			return data
+
 class Historia_Clinica_Controlado(forms.ModelForm):
 	class Meta:
 		model=HistoriaClinicaControlado
@@ -157,8 +169,8 @@ class Plan_TratamientoForm(forms.ModelForm):
 
 		fields =(
 				'actividades',
-				'autorizacion',
 				)
+
 
 class Plan_EjecucionForm(forms.ModelForm):
 	class Meta:

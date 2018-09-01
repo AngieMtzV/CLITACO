@@ -119,17 +119,6 @@ def historia_clinica_integral_edit(request, pk):
 
 
 ''' Muestra todas las historias de todos los usuarios'''
-class ListasHistorias(ListView):
-    context_object_name = 'listas'
-    template_name = 'lista_historias.html'
-    queryset = HistoriaClinica.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(ListasHistorias, self).get_context_data(**kwargs)
-        context['controladas'] = HistoriaClinicaControlado.objects.all()
-        context['integrales'] = HistoriaClinicaIntegral.objects.all()
-        context['urgencias'] = self.queryset
-        return context
 
 
 
@@ -149,12 +138,6 @@ class ListasHistoriasPorUser(ListView):
 
 		return context
 
-	#Metodo para la busqueda de pacientes por CURP
-	def busqueda():
-		query = request.GET.get("q")
-		if query:
-			queryset_list = queryset_list.filter(curp__icontains=query)
-
 
 
 
@@ -163,6 +146,11 @@ class Plan_TratamientoHC(CreateView):
 	form_class = Plan_TratamientoForm
 	template_name= 'plan_actividades.html'
 	success_url = reverse_lazy('plan-ejecucion')
+
+	def form_valid(self, form):
+		historiaControlada = get_object_or_404(HistoriaClinicaControlado, pk=self.kwargs['pk'])
+		form.instance.historiaControlada = historiaControlada
+		return super(Plan_TratamientoHC, self).form_valid(form)
 
 class Plan_EjecucionHC(CreateView):
 	model= PlanEjecucion
@@ -175,6 +163,3 @@ class Plan_EjecucionHC(CreateView):
 		context =super(Plan_EjecucionHC, self).get_context_data(**kwargs)
 		context['listaactividades'] =self.queryset
 		return context
-
-
-

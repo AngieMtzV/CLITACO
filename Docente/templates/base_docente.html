@@ -23,7 +23,7 @@
 	 <h1 > Bienvenido </h1>     
 	{% endblock %}
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-      <a class="navbar-brand" href="#">CLITACO</a>
+      <a class="navbar-brand" href="/clitaco/docente/historiasClinicas">CLITACO</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,15 +32,9 @@
         <ul class="navbar-nav mr-auto">
 
           <li class="nav-item active">
-            <a class="nav-link" href="/clitaco/docente/seguimiento">Seguimiento de Alumnos<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/clitaco/docente/alumnos">Alumnos<span class="sr-only">(current)</span></a>
           </li>
-            <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Perfil</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="/clitaco/docente/foto_perfil">Completar Perfil</a>
-            <a class="dropdown-item" href="#">Ver Perfil</a>
-          </li>
-
+          
           <li class="nav-item">
             <a class="nav-link" href="/accounts/login/">Cerrar Sesión</a>
           </li>

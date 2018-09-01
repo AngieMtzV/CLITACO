@@ -30,19 +30,13 @@ class Turno(models.Model):
 
 
 class PerfilAlumno(models.Model):
-	imagen_alumno = models.ImageField(u'Foto de Perfil', upload_to='imagen-alumnos', default='us_alumno.png')
+	imagen_alumno = models.ImageField(u'Foto de Perfil', upload_to='imagen-alumnos',blank=True)
 	perfil =models.ForeignKey(Usuario, related_name='user_alumnol')
 	semestre = models.ForeignKey(Semestre)
 	grupo = models.ForeignKey(Grupo)
 	modulo = models.ForeignKey(Modulo)
 	unidad = models.CharField(u'Unidad', max_length=30)
 	turno =models.ForeignKey(Turno)
-	''' Pacientes de Urgencia '''
-	pacientes= models.ForeignKey(HistoriaClinica,  null = True) 
-	''' Pacientes Controlados '''
-	pacientes_controlados = models.ForeignKey(HistoriaClinicaControlado, null=True)
-	''' Pacientes Integrales '''
-	pacientes_integal= models.ForeignKey(HistoriaClinicaIntegral, null=True)
 
 	def __unicode__(self):
 		 return unicode(self.perfil)

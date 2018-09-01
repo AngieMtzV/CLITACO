@@ -17,6 +17,9 @@ from django.core.files.storage import FileSystemStorage
 import tempfile
 #from django_weasyprint import WeasyTemplateResponseMixin
 
+def error_404(request):
+	data = {}
+	return render(request,'alumno/perfil/404_perfil.html', data)
 
 def index(request):
 	return render(request,'index.html')
@@ -82,3 +85,15 @@ class Perfil(CreateView):
 class AlumnoPerfil(DetailView):
 	model = PerfilAlumno
 	template_name= 'ver_perfil.html' 
+
+	def get(self, request, *args, **kwargs):
+		try:
+			self.object = self.get_object()
+		except Http404:
+			return redirect('404_perfil')
+		context = self.get_context_data(object=self.object)
+		return self.render_to_response(context)
+
+def view404perfil(request):
+	return render(request,'404_perfil.html')
+

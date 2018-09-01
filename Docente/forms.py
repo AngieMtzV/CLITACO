@@ -25,7 +25,6 @@ class FormularioDocenteForm(forms.ModelForm):
 		model = DocenteAlumno
 
 		fields = (
-			'alumno',
 			'dias',
 			'asistencia',
 			'calificacion',

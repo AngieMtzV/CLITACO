@@ -33,17 +33,6 @@ class Perfil(models.Model):
 	def __unicode__(self):
 		return self.perfil_cabeza
 
-class PlanTratamiento(models.Model):
-	fecha = models.DateTimeField(u'Fecha', auto_now_add=True)
-	actividades = models.TextField(u'Lista de Actividades',null=False, default='')
-	autorizacion = models.BooleanField(u'Autorizado', default = False)
-
-class PlanEjecucion(models.Model):
-	cita = models.IntegerField(u'Cita', default=1)
-	fecha= models.DateField(u'Fecha',auto_now= False)
-	act= models.TextField(u'Actividades', default='')
-	vo_bo= models.CharField(u'Vo. Bo', default='', max_length=15)
-
 
 class BaseHistoriaClinica(models.Model):
 	folio = models.BigAutoField(u'Folio', primary_key=True)
@@ -65,39 +54,39 @@ class BaseHistoriaClinica(models.Model):
 
 class HistoriaClinica(BaseHistoriaClinica):
 	'''Urgencia'''
-	Motivo_Consulta = models.TextField(u'Motivo de Consulta',null = True)
-	Signos_Sintomas = models.TextField(u'Signos y Sintomas que refiere el Paciente', null = True)
-	Ante_Pato = models.TextField(u'Antecedentes no Patologicos', null = True)
+	Motivo_Consulta = models.TextField(u'Motivo de Consulta',null = False, default='')
+	Signos_Sintomas = models.TextField(u'Signos y Sintomas que refiere el Paciente', null = False)
+	Ante_Pato = models.TextField(u'Antecedentes no Patologicos', null = True, blank=True)
 	ultimos_meses = models.BooleanField(u'¿Ha recibido Atencion Odontologica en los ultimos 3 meses?', default=False)
-	tipo_atencion = models.TextField(u'¿De que tipo?', null = True)
+	tipo_atencion = models.TextField(u'¿De que tipo?', null = True, blank=True)
 	alergico = models.BooleanField(u'¿Es alergico a Farmacos y/o Alimentos', default=False)
-	tipo_alergia = models.TextField(u'¿Cual tipo de alergia?', null = True)
+	tipo_alergia = models.TextField(u'¿Cual tipo de alergia?', null = True, blank=True)
 	cardio = models.BooleanField(u'Cardiopatias', default=False)
 	diabetes = models.BooleanField(u'Diabetes', default=False)
 	hipertencion = models.BooleanField(U'Hipertencion', default=False)
-	otras_enfermedades = models.TextField(u'Otras:', null= True)
+	otras_enfermedades = models.TextField(u'Otras:', null= True, blank=True)
 	medicamentos = models.BooleanField(U'¿Actualmente está tomando algún medicamento?', default=False)
-	medi_cual =models.TextField(u'¿Cual(es)?', null = True)
-	medi_motivo = models.TextField(u'Motivo', null = True)
+	medi_cual =models.TextField(u'¿Cual(es)?', null = True, blank=True)
+	medi_motivo = models.TextField(u'Motivo', null = True, blank=True)
 	t_arterial = models.IntegerField(u'T.Arterial', default=0)
 	pulso = models.IntegerField(u'Pulso', default=0)
 	temperatura = models.IntegerField(u'Temperatura(Grados Celsius', default=0)
 	f_respiratoria = models.IntegerField(u'Frecuencia Respiratoria', default=0)
 	peso = models.DecimalField(u'Peso(Kg)', max_digits=5, decimal_places =3, default=0.0)
 	talla = models.IntegerField(u'Talla', default=0)
-	hallazgo_dientes = models.TextField(u'Dientes', null= False, default='No registrado', editable=True)
-	hallazgo_tejidos = models.TextField(u'Tejidos Blandos', null= False, default='No registrado', editable=True)
-	hallazgo_piel_an = models.TextField(u'Piel y Anexos', null= False, default='No registrado', editable=True)
+	hallazgo_dientes = models.TextField(u'Dientes', null= False, default='', editable=True)
+	hallazgo_tejidos = models.TextField(u'Tejidos Blandos', null= False, default='', editable=True)
+	hallazgo_piel_an = models.TextField(u'Piel y Anexos', null= False, default='', editable=True)
 	radiografico = models.BooleanField(u'Radiografico', default=False)
 	#Aqui va la opcion de tipo de radiografico [radiobuttons]
-	interpretacion_radio = models.TextField(u'Interpretacion Radiografica', blank= True)
-	diagnostico = models.TextField(u'Diagnostico', null= False, default= 'No se Agrego aún un diagnostico', editable= True)
-	pronostico = models.TextField(u'Pronostico', null=False, default='No registrado', editable=True)
-	tratamiento_seguimiento = models.TextField(u'Tratamiento que se propone y secuencia del mismo', null=False, default='No registrado', editable=True)
+	interpretacion_radio = models.TextField(u'Interpretacion Radiografica', blank= True, null=True)
+	diagnostico = models.TextField(u'Diagnostico', null= False,default='')
+	pronostico = models.TextField(u'Pronostico', null=False, default='', editable=True)
+	tratamiento_seguimiento = models.TextField(u'Tratamiento que se propone y secuencia del mismo', null=False, default='', editable=True)
 	costo = models.IntegerField(u'Costo del Tratamiento', null=False, default= 0)
-	aut_docente = models.BooleanField(u'Autorización del Docente', default=False)
-	descrip_act = models.TextField(u'Descripcion de Actividad', null=True)
-	descrip_notas = models.TextField(u'Descripción de Notas de Actividades', null= True)
+	aut_docente = models.BooleanField(u'Autorización del Docente', default=False, editable=False)
+	descrip_act = models.TextField(u'Descripcion de Actividad', null=False, default='')
+	descrip_notas = models.TextField(u'Descripción de Notas de Actividades', null= True, blank=True)
 	usuario = models.ForeignKey(Usuario, related_name='user_urgencia')
 
 	def __unicode__(self):
@@ -106,61 +95,61 @@ class HistoriaClinica(BaseHistoriaClinica):
 
 class HistoriaClinicaControlado(BaseHistoriaClinica):
 
-	padecimiento = models.TextField(u'Padecimiento Actual',null = False,default='No registrado', editable=True)
+	padecimiento = models.TextField(u'Padecimiento Actual',null = False,default='', editable=True)
 	
-	antecedentes = models.TextField(u'Antecedentes Heredo Familiares',null = False, default='No registrado', editable=True)
+	antecedentes = models.TextField(u'Antecedentes Heredo Familiares',null = False, default='', editable=True)
 	''' Bloque III Antecedentes personales no patologicos'''
-	np_domiciliarios = models.TextField(u'Servicios Domiciliarios', null = False, default='No registrado', editable=True)
-	np_higiene_vivienda = models.TextField(u'Higiene de Vivienda', null = True)
-	np_higiene_personal = models.TextField(u'Higiene Personal', null= True)
+	np_domiciliarios = models.TextField(u'Servicios Domiciliarios', null = False, default='', editable=True)
+	np_higiene_vivienda = models.TextField(u'Higiene de Vivienda', null = True, blank=True)
+	np_higiene_personal = models.TextField(u'Higiene Personal', null= True, blank=True)
 	np_higiene_bucal = models.TextField(u'Higiene Bucal', null = False, default='No registrado', editable=True)
 	np_alimentacion = models.TextField(u'Alimentacion', null=False,default='No registrado', editable=True)
 	#Grupo Sanguineo
 	#RH
 	inmunizaciones = models.CharField(u'Inmunizaciones', max_length=50)
 	'''Bloque IV Antecedentes Personales Patologicos'''
-	pp_nutricionales = models.TextField(u'Nutricionales', null=False,default='No registrado', editable=True)
-	pp_cardiacos = models.TextField(u'Cardiacos', null=False, default='No registrado', editable=True)
-	pp_hepaticos = models.TextField(u'Hepaticos', null=False, default='No registrado', editable=True)
-	pp_trans_sexual = models.TextField(u'Enfermedades de Transmision Sexual(SIDA)', null=False, default='No registrado', editable=True)
+	pp_nutricionales = models.TextField(u'Nutricionales', null=False,default='', editable=True)
+	pp_cardiacos = models.TextField(u'Cardiacos', null=False, default='', editable=True)
+	pp_hepaticos = models.TextField(u'Hepaticos', null=False, default='', editable=True)
+	pp_trans_sexual = models.TextField(u'Enfermedades de Transmision Sexual(SIDA)', null=False, default='', editable=True)
 	''' Antecedentes Alergicos'''
 	aa_medicamentos = models.BooleanField(u'Medicamentos', default=False)
-	cuales_medicamentos =  models.TextField(u'¿Cual(es)?', null= True)
+	cuales_medicamentos =  models.TextField(u'¿Cual(es)?', null= True, blank=True)
 	aa_alimentos = models.BooleanField(u'Alimentos', default=False)
-	cuales_alimentos =  models.TextField(u'¿Cual(es)?', null= True)
+	cuales_alimentos =  models.TextField(u'¿Cual(es)?', null= True, blank=True)
 	aa_entorno = models.BooleanField(u'Al Entorno Ambiental', default=False)
 	anestesia = models.BooleanField(u'¿Le han administrado anestesia general y/o local', default=False)
-	anestesia_especificacion = models.TextField(u'Especifique', null= True) 
+	anestesia_especificacion = models.TextField(u'Especifique', null= True, blank=True) 
 	reaccion_adversa = models.BooleanField(u'¿Tuvo alguna reaccion adversa', default=False)
-	reaccion_especificacion = models.TextField(u'Especifique', null= True)
+	reaccion_especificacion = models.TextField(u'Especifique', null= True, blank=True)
 	#Adicciones
 	''' Antecedentes Medicos y Quirurgicos'''
 	ultimos_meses_medicos = models.BooleanField(u'¿Ha estado sometico a tratamiento medico en los ultimos 2 meses?', default=False)
-	motivo_medicos = models.TextField(u'Motivo', null= True) 
+	motivo_medicos = models.TextField(u'Motivo', null= True , blank=True) 
 	ultimos_meses_hospi = models.BooleanField(u'¿Ha sido hospitalizado en los ultimos 2 meses?', default=False)
-	motivo_hospi = models.TextField(u'Motivo', null= True) 
+	motivo_hospi = models.TextField(u'Motivo', null= True , blank=True) 
 	tomando_medicamento = models.BooleanField(u'¿Está tomando actualmente algun medicamento?', default=False)
-	medi_cuales = models.TextField(u'¿Cual(es)?', null= True) 
-	medi_motivo = models.TextField(u'Motivo', null= True) 
+	medi_cuales = models.TextField(u'¿Cual(es)?', null= True, blank=True) 
+	medi_motivo = models.TextField(u'Motivo', null= True, blank=True) 
 	'''Antecedentes Hemorragicos'''
 	trans_sangre = models.BooleanField(u'¿Le han transfundido sangre o algun derivado de la misma?', default=False)
-	tras_sangre_motivo = models.TextField(u'Motivo', null= True)
-	trans_sangre_fecha = models.DateField(u'Fecha')
+	tras_sangre_motivo = models.TextField(u'Motivo', null= True, blank=True)
+	trans_sangre_fecha = models.DateField(u'Fecha de la transfución', null=True, blank=True)
 	'''Antecedentes Gineco-Hemorragicos (Si es Mujer)'''
-	num_embarazos = models.IntegerField(u'No. de Embarazos', null=True)
-	num_partos = models.IntegerField(u'No. de Partos', null=True)
-	cesareas = models.IntegerField(u'Cesareas', null=True)
-	abortos = models.IntegerField(u'Abortos', null=True)
-	complicaciones = models.TextField(u'Complicaciones', null= True) 
+	num_embarazos = models.IntegerField(u'No. de Embarazos',default=0)
+	num_partos = models.IntegerField(u'No. de Partos',default=0)
+	cesareas = models.IntegerField(u'Cesareas',default=0)
+	abortos = models.IntegerField(u'Abortos',default=0)
+	complicaciones = models.TextField(u'Complicaciones',default=0) 
 	'''Interrogatorio por aparatos y sistemas'''
-	inter_digestivo = models.TextField(u'Digestivo', null= False, default='No registrado', editable=True)
-	inter_respiratorio = models.TextField(u'Respiratorio', null= False, default='No registrado', editable=True)
-	inter_cardio = models.TextField(u'Cardiovascular', null= False, default='No registrado', editable=True)
-	inter_geni = models.TextField(u'Genitourinario', null= False, default='No registrado', editable=True)
-	inter_endo = models.TextField(u'Endocrino', null= False, default='No registrado', editable=True)
-	inter_tegu = models.TextField(u'Tegumentario', null= False, default='No registrado', editable=True)
-	inter_mus_esque = models.TextField(u'Musculo-Esqueletico', null= False, default='No registrado', editable=True)
-	inter_nervioso = models.TextField(u'Nervioso', null= False, default='No registrado', editable=True)
+	inter_digestivo = models.TextField(u'Digestivo', null= False, default='', editable=True)
+	inter_respiratorio = models.TextField(u'Respiratorio', null= False, default='', editable=True)
+	inter_cardio = models.TextField(u'Cardiovascular', null= False, default='', editable=True)
+	inter_geni = models.TextField(u'Genitourinario', null= False, default='', editable=True)
+	inter_endo = models.TextField(u'Endocrino', null= False, default='', editable=True)
+	inter_tegu = models.TextField(u'Tegumentario', null= False, default='', editable=True)
+	inter_mus_esque = models.TextField(u'Musculo-Esqueletico', null= False, default='', editable=True)
+	inter_nervioso = models.TextField(u'Nervioso', null= False, default='', editable=True)
 	'''Exploracion Fisica'''
 	peso = models.IntegerField(u'Peso', default=50)
 	pulso = models.IntegerField(u'Pulso', default= 100)
@@ -173,18 +162,18 @@ class HistoriaClinicaControlado(BaseHistoriaClinica):
 	'''EXAMEN DE CABEZA'''
 	tipo_craneo = models.ForeignKey(TipoCraneo, default='')
 	cabeza_perfil = models.ForeignKey(Perfil, default='')
-	cara = models.TextField(u'Cara',null = False, default= 'No registrado')
+	cara = models.TextField(u'Cara',null = False, default= '')
 	'''ARTICULACION CRANEOMANDIBULAR'''
 	dolor_masticar = models.BooleanField(u'Dolor al masticar o al hablar', default= False)
-	dm_tipo = models.TextField(u'Tipo', null =False, default= 'No registrado')
+	dm_tipo = models.TextField(u'Tipo', null =False, default= '', blank=True)
 	dm_duracion= models.IntegerField(u'Duración', default=0)
 	dificultad_hablar = models.BooleanField(u'Dificultad al masticar o al hablar', default= False)
-	dh_motivo = models.TextField(u'Motivo', null =True)
+	dh_motivo = models.TextField(u'Motivo', null =True, blank=True)
 	ruido_abertura = models.BooleanField(u'Ruido Articular a la Abertura', default=False)
 	ruido_cierre = models.BooleanField(u'Ruido Articular al Cierre', default=False)
 	patron_recto = models.IntegerField(u'Recto', default=0) #Especificar
-	otras_observaciones = models.TextField(u'Otras Observaciones', null= True)
-	labios = models.TextField(u'Labios', null=False, default= 'No registrado')
+	otras_observaciones = models.TextField(u'Otras Observaciones', null= True, blank=True)
+	labios = models.TextField(u'Labios', null=False, default= '')
 	'''CUELLO'''
 	ganglios= models.TextField(u'Ganglios', null=False, default='')
 	cervicales= models.TextField(u'Cervicales', null=False, default='')
@@ -217,61 +206,61 @@ class HistoriaClinicaControlado(BaseHistoriaClinica):
 
 class HistoriaClinicaIntegral(BaseHistoriaClinica):
 
-	ipadecimiento = models.TextField(u'Padecimiento Actual',null = False,default='No registrado', editable=True)
+	ipadecimiento = models.TextField(u'Padecimiento Actual',null = False,default='', editable=True)
 	
-	iantecedentes = models.TextField(u'Antecedentes Heredo Familiares',null = False, default='No registrado', editable=True)
+	iantecedentes = models.TextField(u'Antecedentes Heredo Familiares',null = False, default='', editable=True)
 	''' Bloque III Antecedentes personales no patologicos'''
-	inp_domiciliarios = models.TextField(u'Servicios Domiciliarios', null = False, default='No registrado', editable=True)
+	inp_domiciliarios = models.TextField(u'Servicios Domiciliarios', null = False, default='', editable=True)
 	inp_higiene_vivienda = models.TextField(u'Higiene de Vivienda', null = True)
 	inp_higiene_personal = models.TextField(u'Higiene Personal', null= True)
-	inp_higiene_bucal = models.TextField(u'Higiene Bucal', null = False, default='No registrado', editable=True)
-	inp_alimentacion = models.TextField(u'Alimentacion', null=False,default='No registrado', editable=True)
+	inp_higiene_bucal = models.TextField(u'Higiene Bucal', null = False, default='', editable=True)
+	inp_alimentacion = models.TextField(u'Alimentacion', null=False,default='', editable=True)
 	#Grupo Sanguineo
 	#RH
 	iinmunizaciones = models.CharField(u'Inmunizaciones', max_length=50)
 	'''Bloque IV Antecedentes Personales Patologicos'''
-	ipp_nutricionales = models.TextField(u'Nutricionales', null=False,default='No registrado', editable=True)
-	ipp_cardiacos = models.TextField(u'Cardiacos', null=False, default='No registrado', editable=True)
-	ipp_hepaticos = models.TextField(u'Hepaticos', null=False, default='No registrado', editable=True)
-	ipp_trans_sexual = models.TextField(u'Enfermedades de Transmision Sexual(SIDA)', null=False, default='No registrado', editable=True)
+	ipp_nutricionales = models.TextField(u'Nutricionales', null=False,default='', editable=True)
+	ipp_cardiacos = models.TextField(u'Cardiacos', null=False, default='', editable=True)
+	ipp_hepaticos = models.TextField(u'Hepaticos', null=False, default='', editable=True)
+	ipp_trans_sexual = models.TextField(u'Enfermedades de Transmision Sexual(SIDA)', null=False, default='', editable=True)
 	''' Antecedentes Alergicos'''
 	iaa_medicamentos = models.BooleanField(u'Medicamentos', default=False)
-	icuales_medicamentos =  models.TextField(u'¿Cual(es)?', null= True)
+	icuales_medicamentos =  models.TextField(u'¿Cual(es)?', null= True, blank=True)
 	iaa_alimentos = models.BooleanField(u'Alimentos', default=False)
-	icuales_alimentos =  models.TextField(u'¿Cual(es)?', null= True)
+	icuales_alimentos =  models.TextField(u'¿Cual(es)?', null= True, blank=True)
 	iaa_entorno = models.BooleanField(u'Al Entorno Ambiental', default=False)
 	ianestesia = models.BooleanField(u'¿Le han administrado anestesia general y/o local', default=False)
-	ianestesia_especificacion = models.TextField(u'Especifique', null= True) 
+	ianestesia_especificacion = models.TextField(u'Especifique', null= True, blank=True) 
 	ireaccion_adversa = models.BooleanField(u'¿Tuvo alguna reaccion adversa', default=False)
-	ireaccion_especificacion = models.TextField(u'Especifique', null= True)
+	ireaccion_especificacion = models.TextField(u'Especifique', null= True, blank=True)
 	#Adicciones
 	''' Antecedentes Medicos y Quirurgicos'''
 	iultimos_meses_medicos = models.BooleanField(u'¿Ha estado sometico a tratamiento medico en los ultimos 2 meses?', default=False)
-	imotivo_medicos = models.TextField(u'Motivo', null= True) 
+	imotivo_medicos = models.TextField(u'Motivo', null= True, blank=True) 
 	iultimos_meses_hospi = models.BooleanField(u'¿Ha sido hospitalizado en los ultimos 2 meses?', default=False)
-	imotivo_hospi = models.TextField(u'Motivo', null= True) 
+	imotivo_hospi = models.TextField(u'Motivo', null= True, blank=True) 
 	itomando_medicamento = models.BooleanField(u'¿Está tomando actualmente algun medicamento?', default=False)
-	imedi_cuales = models.TextField(u'¿Cual(es)?', null= True) 
-	imedi_motivo = models.TextField(u'Motivo', null= True) 
+	imedi_cuales = models.TextField(u'¿Cual(es)?', null= True, blank=True) 
+	imedi_motivo = models.TextField(u'Motivo', null= True, blank=True) 
 	'''Antecedentes Hemorragicos'''
 	itrans_sangre = models.BooleanField(u'¿Le han transfundido sangre o algun derivado de la misma?', default=False)
-	itras_sangre_motivo = models.TextField(u'Motivo', null= True)
-	itrans_sangre_fecha = models.DateField(u'Fecha')
+	itras_sangre_motivo = models.TextField(u'Motivo', null= True, blank=True)
+	itrans_sangre_fecha = models.DateField(u'Fecha de la transfución', null=True, blank=True)
 	'''Antecedentes Gineco-Hemorragicos (Si es Mujer)'''
-	inum_embarazos = models.IntegerField(u'No. de Embarazos', null=True)
-	inum_partos = models.IntegerField(u'No. de Partos', null=True)
-	icesareas = models.IntegerField(u'Cesareas', null=True)
-	iabortos = models.IntegerField(u'Abortos', null=True)
-	icomplicaciones = models.TextField(u'Complicaciones', null= True) 
+	inum_embarazos = models.IntegerField(u'No. de Embarazos', default=0)
+	inum_partos = models.IntegerField(u'No. de Partos', default=0)
+	icesareas = models.IntegerField(u'Cesareas', default=0)
+	iabortos = models.IntegerField(u'Abortos', default=0)
+	icomplicaciones = models.TextField(u'Complicaciones', default=0) 
 	'''Interrogatorio por aparatos y sistemas'''
-	iinter_digestivo = models.TextField(u'Digestivo', null= False, default='No registrado', editable=True)
-	iinter_respiratorio = models.TextField(u'Respiratorio', null= False, default='No registrado', editable=True)
-	iinter_cardio = models.TextField(u'Cardiovascular', null= False, default='No registrado', editable=True)
-	iinter_geni = models.TextField(u'Genitourinario', null= False, default='No registrado', editable=True)
-	iinter_endo = models.TextField(u'Endocrino', null= False, default='No registrado', editable=True)
-	iinter_tegu = models.TextField(u'Tegumentario', null= False, default='No registrado', editable=True)
-	iinter_mus_esque = models.TextField(u'Musculo-Esqueletico', null= False, default='No registrado', editable=True)
-	iinter_nervioso = models.TextField(u'Nervioso', null= False, default='No registrado', editable=True)
+	iinter_digestivo = models.TextField(u'Digestivo', null= False, default='', editable=True)
+	iinter_respiratorio = models.TextField(u'Respiratorio', null= False, default='', editable=True)
+	iinter_cardio = models.TextField(u'Cardiovascular', null= False, default='', editable=True)
+	iinter_geni = models.TextField(u'Genitourinario', null= False, default='', editable=True)
+	iinter_endo = models.TextField(u'Endocrino', null= False, default='', editable=True)
+	iinter_tegu = models.TextField(u'Tegumentario', null= False, default='', editable=True)
+	iinter_mus_esque = models.TextField(u'Musculo-Esqueletico', null= False, default='', editable=True)
+	iinter_nervioso = models.TextField(u'Nervioso', null= False, default='', editable=True)
 	'''Exploracion Fisica'''
 	ipeso = models.DecimalField(u'Peso', default=50.5, max_digits=2, decimal_places =2)
 	ipulso = models.IntegerField(u'Pulso', default= 100)
@@ -283,18 +272,18 @@ class HistoriaClinicaIntegral(BaseHistoriaClinica):
 	'''EXAMEN DE CABEZA'''
 	itipo_craneo = models.ForeignKey(TipoCraneo, default='')
 	icabeza_perfil = models.ForeignKey(Perfil, default='')
-	icara = models.TextField(u'Cara',null = False, default= 'No registrado')
+	icara = models.TextField(u'Cara',null = False, default= '')
 	'''ARTICULACION CRANEOMANDIBULAR'''
 	idolor_masticar = models.BooleanField(u'Dolor al masticar o al hablar', default= False)
-	idm_tipo = models.TextField(u'Tipo', null =False, default= 'No registrado')
+	idm_tipo = models.TextField(u'Tipo', null =True, blank=True)
 	idm_duracion= models.IntegerField(u'Duración', default=0)
 	idificultad_hablar = models.BooleanField(u'Dificultad al masticar o al hablar', default= False)
-	idh_motivo = models.TextField(u'Motivo', null =True)
+	idh_motivo = models.TextField(u'Motivo', null =True, blank=True)
 	iruido_abertura = models.BooleanField(u'Ruido Articular a la Abertura', default=False)
 	iruido_cierre = models.BooleanField(u'Ruido Articular al Cierre', default=False)
 	ipatron_recto = models.IntegerField(u'Recto', default=0) #Especificar
-	iotras_observaciones = models.TextField(u'Otras Observaciones', null= True)
-	ilabios = models.TextField(u'Labios', null=False, default= 'No registrado')
+	iotras_observaciones = models.TextField(u'Otras Observaciones', null= True, blank=True)
+	ilabios = models.TextField(u'Labios', null=False, default= '')
 	'''CUELLO'''
 	iganglios= models.TextField(u'Ganglios', null=False, default='')
 	icervicales= models.TextField(u'Cervicales', null=False, default='')
@@ -328,9 +317,18 @@ class HistoriaClinicaIntegral(BaseHistoriaClinica):
 		return self.nommbre_paciente
 
 		
+class PlanTratamiento(models.Model):
+	fecha = models.DateTimeField(u'Fecha', auto_now_add=True)
+	actividades = models.TextField(u'Lista de Actividades',null=False, default='')
+	autorizacion = models.BooleanField(u'Autorizado', default = False)
+	historiaControlada = models.ForeignKey(HistoriaClinicaControlado)
 
-	
-
+class PlanEjecucion(models.Model):
+	cita = models.IntegerField(u'Cita', default=1)
+	fecha= models.DateField(u'Fecha',auto_now= False)
+	act= models.TextField(u'Actividades', default='')
+	vo_bo= models.CharField(u'Vo. Bo', default='', max_length=15)
+	plan_tratamiento = models.ForeignKey(PlanTratamiento)
 
 
 
